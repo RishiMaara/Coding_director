@@ -466,30 +466,58 @@ body {
 
 .typing-area {
   flex-shrink: 0; position: relative;
-  border-radius: var(--radius-lg);
+  border-radius: 18px;
   display: flex; align-items: center; justify-content: center;
   min-height: 62px; overflow: hidden;
   cursor: pointer;
-  /* ===== PRIMARY BUTTON STATE (before user clicks) ===== */
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 55%, #5b21b6 100%);
-  border: 2px solid transparent;
-  box-shadow: 0 4px 24px rgba(124,58,237,0.5), 0 0 0 0 rgba(124,58,237,0);
-  animation: typingBtnPulse 2.6s ease-in-out infinite;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.3s ease, border 0.3s ease;
+
+  /* ===== GLOWING PURPLE BUTTON — matches reference design ===== */
+  /* Deep purple base with bright lavender radial center bloom */
+  background:
+    radial-gradient(ellipse 65% 80% at 50% 50%, #a78bfa 0%, #7c3aed 45%, #4c1d95 100%);
+  border: 1.5px solid rgba(167, 139, 250, 0.35);
+  box-shadow:
+    0 0 32px rgba(124, 58, 237, 0.55),
+    0 0 80px rgba(124, 58, 237, 0.25),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  animation: typingBtnPulse 2.8s ease-in-out infinite;
+  transition:
+    background 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease,
+    transform 0.2s ease;
 }
+
+/* Inner shimmer overlay (the bright centre spot) */
+.typing-area::before {
+  content: ''; position: absolute;
+  inset: 0; border-radius: inherit;
+  background: radial-gradient(ellipse 55% 60% at 50% 40%, rgba(255,255,255,0.28) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+  transition: opacity 0.4s ease;
+}
+
 /* Ripple on click */
 .typing-area::after {
   content: ''; position: absolute; inset: 0;
   background: rgba(255,255,255,0); border-radius: inherit;
-  transition: background 0.18s ease;
+  transition: background 0.18s ease; z-index: 0;
 }
-.typing-area:active:not(.focused)::after { background: rgba(255,255,255,0.1); }
+.typing-area:active:not(.focused)::after { background: rgba(255,255,255,0.12); }
 
+/* ===== HOVER → BRIGHTENS TO NEAR-WHITE ===== */
 .typing-area:hover:not(.focused) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 36px rgba(124,58,237,0.65), 0 0 0 6px rgba(124,58,237,0.08);
+  background:
+    radial-gradient(ellipse 70% 85% at 50% 45%, #ffffff 0%, #d8b4fe 30%, #7c3aed 75%, #4c1d95 100%);
+  border-color: rgba(255,255,255,0.55);
+  box-shadow:
+    0 0 48px rgba(167, 139, 250, 0.8),
+    0 0 100px rgba(124, 58, 237, 0.45),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+  transform: translateY(-2px) scale(1.008);
   animation-play-state: paused;
 }
+.typing-area:hover:not(.focused)::before { opacity: 0; }
 
 /* ===== FOCUSED (active typing) STATE ===== */
 .typing-area.focused {
@@ -500,26 +528,35 @@ body {
   cursor: text;
   transform: none;
 }
+.typing-area.focused::before { display: none; }
 
 @keyframes typingBtnPulse {
   0%, 100% {
-    box-shadow: 0 4px 24px rgba(124,58,237,0.45), 0 0 0 0 rgba(124,58,237,0.25);
+    box-shadow:
+      0 0 28px rgba(124,58,237,0.5),
+      0 0 70px rgba(124,58,237,0.2);
     transform: translateY(0);
   }
   50% {
-    box-shadow: 0 6px 32px rgba(124,58,237,0.62), 0 0 0 7px rgba(124,58,237,0.04);
+    box-shadow:
+      0 0 40px rgba(124,58,237,0.7),
+      0 0 90px rgba(124,58,237,0.3);
     transform: translateY(-1px);
   }
 }
 
 .typing-area-hint {
   display: flex; align-items: center; gap: 10px;
-  color: rgba(255,255,255,0.93);
-  font-size: 15px; font-weight: 600;
+  color: rgba(10, 5, 20, 0.9);
+  font-size: 15px; font-weight: 700;
   pointer-events: none; user-select: none;
   position: relative; z-index: 1;
-  letter-spacing: 0.01em;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 6px rgba(255,255,255,0.25);
+  transition: color 0.3s ease;
+}
+.typing-area:hover:not(.focused) .typing-area-hint {
+  color: rgba(10, 5, 20, 0.95);
 }
 .typing-area.focused .typing-area-hint { display: none; }
 

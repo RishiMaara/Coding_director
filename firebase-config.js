@@ -37,12 +37,13 @@
    ============================================================ */
 
 const firebaseConfig = {
-  apiKey:            "PASTE_YOUR_API_KEY_HERE",
-  authDomain:        "PASTE_YOUR_AUTH_DOMAIN_HERE",
-  projectId:         "PASTE_YOUR_PROJECT_ID_HERE",
-  storageBucket:     "PASTE_YOUR_STORAGE_BUCKET_HERE",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID_HERE",
-  appId:             "PASTE_YOUR_APP_ID_HERE",
+  apiKey:            "AIzaSyDYirC27kapVYasavCbnUPzjD5ROv5n-6k",
+  authDomain:        "coding-director.firebaseapp.com",
+  projectId:         "coding-director",
+  storageBucket:     "coding-director.firebasestorage.app",
+  messagingSenderId: "821817467043",
+  appId:             "1:821817467043:web:ec1bd2050a79cf07fcdf16",
+  measurementId:     "G-N1880F1837",
 };
 
 /*

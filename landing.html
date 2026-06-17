@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding Director — Direct Your Coding Journey</title>
+  <meta name="description" content="Learn to code with elite trainers. 1000+ coding lessons, typing drills, and real-world projects. Coding Director is where developers level up.">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Coding Director — Direct Your Coding Journey">
+  <meta property="og:description" content="Learn to code with elite trainers. 1000+ coding lessons, typing drills, and real-world projects.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="hero.png">
+  <meta name="theme-color" content="#7c3aed">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Coding Director">
+  <meta name="twitter:description" content="Direct your coding journey. 1000+ lessons, typing drills, expert trainers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+  <!-- ===== PARTICLE CANVAS ===== -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- ================================================================
+       NAVBAR
+       ================================================================ -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+
+      <!-- Brand -->
+      <a href="landing.html" class="nav-brand" id="nav-brand-logo">
+        <div class="nav-logo-icon">
+          <video autoplay loop muted playsinline>
+            <source src="InShot_20260617_132111460.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="nav-brand-text">
+          <span class="nav-brand-name">Coding</span>
+          <span class="nav-brand-dir">Director</span>
+        </div>
+      </a>
+
+      <!-- Nav links -->
+      <nav class="nav-links" id="nav-links">
+        <a href="#hero"     class="nav-link active" id="nl-home">Home</a>
+        <a href="#features" class="nav-link" id="nl-features">Features</a>
+        <a href="#courses"  class="nav-link" id="nl-courses">Courses</a>
+        <a href="#trainers" class="nav-link" id="nl-trainers">Trainers</a>
+        <a href="#pricing"  class="nav-link" id="nl-pricing">Plans</a>
+        <a href="#about"    class="nav-link" id="nl-about">About</a>
+      </nav>
+
+      <!-- CTA -->
+      <div class="nav-actions">
+        <a href="index.html" class="btn-nav-login" id="btn-nav-login">Log In</a>
+        <a href="index.html" class="btn-nav-signup" id="btn-nav-signup">
+          Start Free
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================================================================
+       HERO SECTION
+       ================================================================ -->
+  <section class="hero" id="hero">
+
+    <!-- Background orbs -->
+    <div class="hero-orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Grid overlay -->
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <div class="hero-container">
+
+      <!-- Left content -->
+      <div class="hero-content">
+
+        <!-- Badge -->
+        <div class="hero-badge" id="hero-badge">
+          <span class="badge-dot"></span>
+          🎬 Now Enrolling — Batch 2026
+        </div>
+
+        <!-- Headline -->
+        <h1 class="hero-headline">
+          <span class="hero-line-1">Direct Your</span>
+          <span class="hero-line-2">
+            <span class="gradient-word">Coding</span>
+            <span class="headline-underline">Journey</span>
+          </span>
+          <span class="hero-line-3">Like a Pro.</span>
+        </h1>
+
+        <!-- Sub -->
+        <p class="hero-sub">
+          <strong>1000+</strong> expert-crafted coding lessons across all tech domains.
+          Learn from elite trainers, build real projects, and sharpen your skills —
+          anytime, anywhere, at your own pace.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="hero-ctas">
+          <a href="index.html" class="btn-hero-primary" id="hero-cta-start">
+            <span>🎬 Start Directing</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#features" class="btn-hero-secondary" id="hero-cta-how">
+            <span>▶ See How It Works</span>
+          </a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="hero-stats" id="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-val" data-count="1000">0</span>
+            <span class="hero-stat-suffix">+</span>
+            <p class="hero-stat-lbl">Coding Lessons</p>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-val" data-count="5000">0</span>
+            <span class="hero-stat-suffix">+</span>
+            <p class="hero-stat-lbl">Students Trained</p>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-val" data-count="200">0</span>
+            <span class="hero-stat-suffix">+</span>
+            <p class="hero-stat-lbl">Expert Trainers</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Hero visual -->
+      <div class="hero-visual" id="hero-visual">
+
+        <!-- Glowing ring -->
+        <div class="hero-ring" aria-hidden="true"></div>
+
+        <!-- Main image -->
+        <div class="hero-img-wrap">
+          <img src="hero.png" alt="Developer at Coding Director" class="hero-img" id="hero-img">
+
+          <!-- Floating code card -->
+          <div class="float-card float-code" id="float-code">
+            <div class="float-card-chrome">
+              <span class="chrome-dot red"></span>
+              <span class="chrome-dot amber"></span>
+              <span class="chrome-dot green"></span>
+              <span class="chrome-file">main.py</span>
+            </div>
+            <pre class="float-code-text"><span class="tok-kw">def</span> <span class="tok-fn">level_up</span>(skill):
+  <span class="tok-kw">return</span> skill <span class="tok-op">*</span> <span class="tok-num">10</span> <span class="tok-op">+</span> <span class="tok-str">"🚀"</span></pre>
+          </div>
+
+          <!-- Floating WPM badge -->
+          <div class="float-card float-wpm" id="float-wpm">
+            <span class="float-wpm-icon">⌨️</span>
+            <div>
+              <span class="float-wpm-val">142</span>
+              <span class="float-wpm-unit">WPM</span>
+              <p class="float-wpm-lbl">Typing Speed</p>
+            </div>
+          </div>
+
+          <!-- Floating achievement -->
+          <div class="float-card float-ach" id="float-ach">
+            <span class="float-ach-icon">🏆</span>
+            <div>
+              <p class="float-ach-title">Achievement Unlocked!</p>
+              <p class="float-ach-sub">Python Master · Level 5</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Decorative blobs -->
+        <div class="deco-blob deco-blob-1" aria-hidden="true"></div>
+        <div class="deco-blob deco-blob-2" aria-hidden="true"></div>
+
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <a href="#features" class="scroll-cue" id="scroll-cue" aria-label="Scroll to features">
+      <span class="scroll-cue-line"></span>
+    </a>
+  </section>
+
+  <!-- ================================================================
+       TRUST BAR
+       ================================================================ -->
+  <section class="trust-bar" id="trust-bar">
+    <div class="trust-container">
+      <p class="trust-label">Trusted by engineers at</p>
+      <div class="trust-logos">
+        <span class="trust-logo">Google</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-logo">Meta</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-logo">Amazon</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-logo">Microsoft</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-logo">Stripe</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-logo">Vercel</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       FEATURES SECTION
+       ================================================================ -->
+  <section class="features" id="features">
+    <div class="section-container">
+
+      <div class="section-label">⚡ WHY CODING DIRECTOR?</div>
+      <h2 class="section-title">Everything you need to go from<br><span class="gradient-text">zero to production-ready</span></h2>
+      <p class="section-sub">A platform engineered for serious developers — not casual tutorials.</p>
+
+      <div class="features-grid">
+
+        <div class="feature-card stagger" id="feat-1">
+          <div class="feature-icon" style="--ic: #7c3aed;">🎬</div>
+          <h3 class="feature-title">Director-Led Lessons</h3>
+          <p class="feature-desc">Each lesson is crafted by an expert trainer who directs you through every concept — like a real coding mentor in your corner.</p>
+        </div>
+
+        <div class="feature-card stagger" id="feat-2">
+          <div class="feature-icon" style="--ic: #06b6d4;">⌨️</div>
+          <h3 class="feature-title">Code Typing Drills</h3>
+          <p class="feature-desc">Build real muscle memory by typing actual code — not random text. Track your WPM, accuracy, and speed across all languages.</p>
+        </div>
+
+        <div class="feature-card stagger" id="feat-3">
+          <div class="feature-icon" style="--ic: #10b981;">🔥</div>
+          <h3 class="feature-title">Streak System</h3>
+          <p class="feature-desc">Daily streaks, XP, badges and achievement milestones keep you motivated and on track — even on the tough days.</p>
+        </div>
+
+        <div class="feature-card stagger" id="feat-4">
+          <div class="feature-icon" style="--ic: #f59e0b;">🌐</div>
+          <h3 class="feature-title">All Languages Covered</h3>
+          <p class="feature-desc">Python, JavaScript, TypeScript, Rust, Go, Java, C++ and more — one platform for your entire stack.</p>
+        </div>
+
+        <div class="feature-card stagger" id="feat-5">
+          <div class="feature-icon" style="--ic: #ec4899;">☁️</div>
+          <h3 class="feature-title">Cloud Sync Progress</h3>
+          <p class="feature-desc">Sign in with Google and your lessons, drills, and stats sync instantly across every device — desktop, laptop, or tablet.</p>
+        </div>
+
+        <div class="feature-card stagger" id="feat-6">
+          <div class="feature-icon" style="--ic: #7c3aed;">📊</div>
+          <h3 class="feature-title">Analytics Dashboard</h3>
+          <p class="feature-desc">Visual sparklines, language breakdowns, and session history give you a crystal-clear picture of your progress over time.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       COURSES TEASER
+       ================================================================ -->
+  <section class="courses" id="courses">
+    <div class="section-container">
+      <div class="section-label">📚 POPULAR COURSES</div>
+      <h2 class="section-title">Pick your <span class="gradient-text">language, start your</span> scene</h2>
+      <p class="section-sub">Structured paths from fundamentals to advanced — all created by working engineers.</p>
+
+      <div class="courses-grid">
+
+        <div class="course-card stagger" id="course-py">
+          <div class="course-top">
+            <span class="course-emoji">🐍</span>
+            <span class="course-badge">Most Popular</span>
+          </div>
+          <h3 class="course-name">Python Mastery</h3>
+          <p class="course-desc">From variables to async APIs — the most complete Python path on the internet.</p>
+          <div class="course-meta">
+            <span>48 lessons</span>
+            <span class="dot-sep">·</span>
+            <span>Beginner → Expert</span>
+          </div>
+          <div class="course-progress-bar"><div class="course-progress-fill" style="width:78%"></div></div>
+          <a href="index.html" class="course-cta" id="course-py-cta">Enroll Now →</a>
+        </div>
+
+        <div class="course-card stagger" id="course-js">
+          <div class="course-top">
+            <span class="course-emoji">🟨</span>
+            <span class="course-badge trending">Trending</span>
+          </div>
+          <h3 class="course-name">JavaScript & TypeScript</h3>
+          <p class="course-desc">DOM, async/await, TypeScript types, React fundamentals and full-stack patterns.</p>
+          <div class="course-meta">
+            <span>62 lessons</span>
+            <span class="dot-sep">·</span>
+            <span>All Levels</span>
+          </div>
+          <div class="course-progress-bar"><div class="course-progress-fill" style="width:65%"></div></div>
+          <a href="index.html" class="course-cta" id="course-js-cta">Enroll Now →</a>
+        </div>
+
+        <div class="course-card stagger" id="course-rust">
+          <div class="course-top">
+            <span class="course-emoji">🦀</span>
+            <span class="course-badge new">New</span>
+          </div>
+          <h3 class="course-name">Rust Systems Programming</h3>
+          <p class="course-desc">Ownership, lifetimes, concurrency and building blazing-fast CLI tools.</p>
+          <div class="course-meta">
+            <span>34 lessons</span>
+            <span class="dot-sep">·</span>
+            <span>Intermediate → Advanced</span>
+          </div>
+          <div class="course-progress-bar"><div class="course-progress-fill" style="width:45%"></div></div>
+          <a href="index.html" class="course-cta" id="course-rust-cta">Enroll Now →</a>
+        </div>
+
+        <div class="course-card stagger" id="course-go">
+          <div class="course-top">
+            <span class="course-emoji">🐹</span>
+          </div>
+          <h3 class="course-name">Go Backend Engineering</h3>
+          <p class="course-desc">Goroutines, channels, REST APIs and microservices — Go's most practical skills.</p>
+          <div class="course-meta">
+            <span>29 lessons</span>
+            <span class="dot-sep">·</span>
+            <span>Intermediate</span>
+          </div>
+          <div class="course-progress-bar"><div class="course-progress-fill" style="width:55%"></div></div>
+          <a href="index.html" class="course-cta" id="course-go-cta">Enroll Now →</a>
+        </div>
+
+      </div>
+
+      <div class="courses-cta-row">
+        <a href="index.html" class="btn-all-courses" id="btn-all-courses">View All 1000+ Lessons →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       TRAINERS SECTION
+       ================================================================ -->
+  <section class="trainers" id="trainers">
+    <div class="section-container">
+      <div class="section-label">👨‍💻 MEET THE DIRECTORS</div>
+      <h2 class="section-title">Trained by engineers who've <span class="gradient-text">shipped real products</span></h2>
+      <p class="section-sub">No theory-only academics. Every trainer is an active developer with production experience.</p>
+
+      <div class="trainers-grid">
+        <div class="trainer-card stagger" id="trainer-1">
+          <div class="trainer-avatar" style="--grad: linear-gradient(135deg,#7c3aed,#06b6d4)">R</div>
+          <h4 class="trainer-name">Rishi Maara</h4>
+          <p class="trainer-role">Founder & Lead Trainer</p>
+          <div class="trainer-tags">
+            <span class="trainer-tag">Python</span>
+            <span class="trainer-tag">JavaScript</span>
+            <span class="trainer-tag">Systems</span>
+          </div>
+          <p class="trainer-bio">Authored 400+ lessons. 10+ years shipping web and backend systems at scale.</p>
+        </div>
+
+        <div class="trainer-card stagger" id="trainer-2">
+          <div class="trainer-avatar" style="--grad: linear-gradient(135deg,#06b6d4,#10b981)">A</div>
+          <h4 class="trainer-name">Arjun Sharma</h4>
+          <p class="trainer-role">Rust & Systems Trainer</p>
+          <div class="trainer-tags">
+            <span class="trainer-tag">Rust</span>
+            <span class="trainer-tag">C++</span>
+            <span class="trainer-tag">Linux</span>
+          </div>
+          <p class="trainer-bio">Former systems engineer at a fintech firm. Turned Rust obsession into a teaching career.</p>
+        </div>
+
+        <div class="trainer-card stagger" id="trainer-3">
+          <div class="trainer-avatar" style="--grad: linear-gradient(135deg,#f59e0b,#ef4444)">P</div>
+          <h4 class="trainer-name">Priya Nair</h4>
+          <p class="trainer-role">Frontend & TypeScript Trainer</p>
+          <div class="trainer-tags">
+            <span class="trainer-tag">TypeScript</span>
+            <span class="trainer-tag">React</span>
+            <span class="trainer-tag">CSS</span>
+          </div>
+          <p class="trainer-bio">UI architect with a passion for type safety and pixel-perfect UIs. Talks at JSConf yearly.</p>
+        </div>
+
+        <div class="trainer-card stagger" id="trainer-4">
+          <div class="trainer-avatar" style="--grad: linear-gradient(135deg,#10b981,#06b6d4)">K</div>
+          <h4 class="trainer-name">Karan Mehta</h4>
+          <p class="trainer-role">Go & Cloud Trainer</p>
+          <div class="trainer-tags">
+            <span class="trainer-tag">Go</span>
+            <span class="trainer-tag">Docker</span>
+            <span class="trainer-tag">AWS</span>
+          </div>
+          <p class="trainer-bio">Backend wizard who's built APIs serving millions of requests/day. Obsessed with clean code.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       PRICING SECTION
+       ================================================================ -->
+  <section class="pricing" id="pricing">
+    <div class="section-container">
+      <div class="section-label">💳 PLANS</div>
+      <h2 class="section-title">Simple, transparent <span class="gradient-text">pricing</span></h2>
+      <p class="section-sub">Start free. Upgrade when you're ready. No hidden fees.</p>
+
+      <div class="pricing-grid">
+
+        <div class="pricing-card stagger" id="plan-free">
+          <div class="plan-name">Free</div>
+          <div class="plan-price"><span class="plan-amount">₹0</span><span class="plan-period">/forever</span></div>
+          <p class="plan-desc">Perfect to get started and explore what Coding Director can do.</p>
+          <ul class="plan-features">
+            <li>✅ 50 free lessons</li>
+            <li>✅ Typing drills (basic)</li>
+            <li>✅ Local progress sync</li>
+            <li>✅ 3 coding languages</li>
+            <li>❌ Cloud sync</li>
+            <li>❌ Analytics dashboard</li>
+          </ul>
+          <a href="index.html" class="plan-cta plan-cta-outline" id="plan-free-cta">Get Started Free</a>
+        </div>
+
+        <div class="pricing-card featured stagger" id="plan-pro">
+          <div class="plan-popular-badge">Most Popular ⭐</div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-price"><span class="plan-amount">₹299</span><span class="plan-period">/month</span></div>
+          <p class="plan-desc">For developers serious about leveling up their skills fast.</p>
+          <ul class="plan-features">
+            <li>✅ All 1000+ lessons</li>
+            <li>✅ Unlimited typing drills</li>
+            <li>✅ Cloud sync across devices</li>
+            <li>✅ All 12+ languages</li>
+            <li>✅ Analytics & streak calendar</li>
+            <li>✅ Daily challenges</li>
+          </ul>
+          <a href="index.html" class="plan-cta plan-cta-primary" id="plan-pro-cta">Start 7-day Free Trial</a>
+        </div>
+
+        <div class="pricing-card stagger" id="plan-team">
+          <div class="plan-name">Team</div>
+          <div class="plan-price"><span class="plan-amount">₹999</span><span class="plan-period">/month</span></div>
+          <p class="plan-desc">For squads and bootcamps that train together and grow together.</p>
+          <ul class="plan-features">
+            <li>✅ Everything in Pro</li>
+            <li>✅ Up to 10 seats</li>
+            <li>✅ Team analytics</li>
+            <li>✅ Custom lesson packs</li>
+            <li>✅ Priority support</li>
+            <li>✅ Trainer Q&A sessions</li>
+          </ul>
+          <a href="index.html" class="plan-cta plan-cta-outline" id="plan-team-cta">Contact Us</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       ABOUT / CTA SECTION
+       ================================================================ -->
+  <section class="about-cta" id="about">
+    <div class="about-orbs" aria-hidden="true">
+      <div class="orb orb-a"></div>
+      <div class="orb orb-b"></div>
+    </div>
+    <div class="about-container">
+      <div class="section-label">🎬 OUR STORY</div>
+      <h2 class="about-title">We believe every developer<br>deserves a <span class="gradient-text">great director</span></h2>
+      <p class="about-text">
+        Coding Director was built by developers who were tired of boring, passive video tutorials.
+        We wanted a platform that actively trains your hands, your brain, and your speed —
+        not just your eyes. So we built the tool we wished existed when we were learning.
+        Every lesson, every drill, every badge is crafted with one goal: <em>making you a faster, sharper, more confident developer.</em>
+      </p>
+      <div class="about-cta-btns">
+        <a href="index.html" class="btn-hero-primary" id="about-cta-app">
+          <span>🎬 Open the App</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#trainers" class="btn-hero-secondary" id="about-cta-trainers">Meet the Trainers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="footer" id="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="nav-logo-icon small">
+            <video autoplay loop muted playsinline>
+              <source src="InShot_20260617_132111460.mp4" type="video/mp4">
+            </video>
+          </div>
+          <span class="footer-brand-text">Coding Director</span>
+        </div>
+        <p class="footer-tagline">Direct your coding journey.<br>One lesson, one drill, one commit at a time.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5 class="footer-col-title">Platform</h5>
+          <a href="index.html" class="footer-link">Dashboard</a>
+          <a href="index.html" class="footer-link">Lessons</a>
+          <a href="index.html" class="footer-link">Typing Drills</a>
+          <a href="index.html" class="footer-link">Settings</a>
+        </div>
+        <div class="footer-col">
+          <h5 class="footer-col-title">Learn</h5>
+          <a href="index.html" class="footer-link">Python</a>
+          <a href="index.html" class="footer-link">JavaScript</a>
+          <a href="index.html" class="footer-link">Rust</a>
+          <a href="index.html" class="footer-link">Go</a>
+        </div>
+        <div class="footer-col">
+          <h5 class="footer-col-title">Company</h5>
+          <a href="#about" class="footer-link">About</a>
+          <a href="#trainers" class="footer-link">Trainers</a>
+          <a href="#pricing" class="footer-link">Pricing</a>
+          <a href="mailto:hello@codingdirector.dev" class="footer-link">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Coding Director. Built with ❤️ for developers.</span>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy</a>
+        <a href="#" class="footer-bottom-link">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="landing.js"></script>
+</body>
+</html>
