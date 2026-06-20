@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coding Director — Train your hands, not just your eyes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  /* ============ TOKENS ============ */
+  :root{
+    --ink: #12151b;
+    --ink-2: #0d0f14;
+    --panel: #1b1f27;
+    --panel-2: #20252f;
+    --rule: #2b313d;
+    --rule-soft: #232830;
+    --paper: #f4efe4;
+    --muted: #9aa2b1;
+    --muted-dim: #6e7585;
+    --amber: #e8a33d;
+    --amber-dim: #c98a2e;
+    --cyan: #67d2c4;
+    --red: #e14f45;
+
+    --display: "Big Shoulders Display", sans-serif;
+    --mono: "JetBrains Mono", monospace;
+    --body: "Work Sans", sans-serif;
+
+    --container: 1180px;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color: inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  :focus-visible{ outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  .wrap{ max-width: var(--container); margin: 0 auto; padding: 0 28px; }
+
+  /* film grain overlay */
+  .grain{
+    position: fixed; inset:0; pointer-events:none; z-index: 999;
+    opacity: .035; mix-blend-mode: overlay;
+  }
+
+  /* sprocket / film-strip divider */
+  .sprocket{
+    height: 14px;
+    background-image: radial-gradient(circle, var(--ink) 2.4px, transparent 2.5px);
+    background-size: 22px 14px;
+    background-position: center;
+    opacity: .55;
+  }
+  .sprocket.on-panel{ background-image: radial-gradient(circle, var(--panel) 2.4px, transparent 2.5px); }
+
+  /* ============ TYPE HELPERS ============ */
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    display:flex; align-items:center; gap:.55em;
+    margin-bottom: 18px;
+  }
+  .eyebrow .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--red);
+    box-shadow: 0 0 0 3px rgba(225,79,69,.18);
+  }
+  .eyebrow.muted{ color: var(--muted); }
+  .eyebrow.muted .dot{ background: var(--muted-dim); box-shadow:none; }
+
+  h1,h2,h3{
+    font-family: var(--display);
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: .01em;
+    line-height: 1.02;
+  }
+  h2{ font-size: clamp(2rem, 3.6vw, 3.1rem); margin-bottom: 20px; }
+  h3{ font-size: 1.32rem; letter-spacing: .02em; margin-bottom: 10px; }
+
+  .lede{
+    font-size: 1.08rem;
+    color: var(--muted);
+    max-width: 540px;
+  }
+
+  .accent{ color: var(--amber); }
+  .accent-cyan{ color: var(--cyan); }
+
+  /* ============ BUTTONS ============ */
+  .btn{
+    font-family: var(--mono);
+    font-size: .82rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 14px 26px;
+    border-radius: 3px;
+    display:inline-flex; align-items:center; gap:.5em;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .btn-primary{ background: var(--amber); color: var(--ink-2); font-weight: 700; }
+  .btn-primary:hover{ background: #f2b454; transform: translateY(-1px); }
+  .btn-ghost{ border-color: var(--rule); color: var(--paper); }
+  .btn-ghost:hover{ border-color: var(--amber); color: var(--amber); transform: translateY(-1px); }
+  .btn-row{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  /* ============ NAV ============ */
+  header.site{
+    position: fixed; top:0; left:0; right:0; z-index: 500;
+    background: rgba(18,21,27,.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 28px;
+    max-width: var(--container); margin: 0 auto;
+  }
+  .logo{
+    font-family: var(--mono); font-weight:700; letter-spacing:.06em;
+    font-size: .95rem; text-transform: uppercase;
+    display:flex; align-items:center; gap:.6em;
+  }
+  .logo .dot{ width:8px; height:8px; background:var(--red); border-radius:50%; animation: pulse-rec 2.4s ease-in-out infinite; }
+  .navlinks{ display:flex; align-items:center; gap:36px; }
+  .navlinks a{
+    font-size: .88rem; color: var(--muted); font-weight:500;
+    transition: color .15s ease;
+  }
+  .navlinks a:hover{ color: var(--paper); }
+  .navlinks .btn{ padding: 10px 20px; font-size:.75rem; }
+  .nav-toggle{ display:none; }
+
+  /* ============ HERO ============ */
+  .hero{
+    padding: 168px 0 90px;
+    position: relative;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center;
+  }
+  .hero h1{
+    font-size: clamp(2.5rem, 5.6vw, 4.7rem);
+    margin-bottom: 22px;
+  }
+  .hero .lede{ max-width: 480px; margin-bottom: 34px; font-size: 1.1rem; }
+
+  /* typing demo window */
+  .slate{
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 30px 70px -30px rgba(0,0,0,.6);
+  }
+  .slate-bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--panel-2);
+    font-family: var(--mono); font-size: .72rem; color: var(--muted);
+    letter-spacing: .04em;
+  }
+  .slate-bar .file{ color: var(--paper); }
+  .slate-bar .stage{ text-transform: uppercase; color: var(--muted-dim); }
+  .slate-bar .stats{ display:flex; gap: 14px; }
+  .slate-bar .stats span{ color: var(--cyan); }
+  .slate-bar .stats .acc{ color: var(--amber); }
+
+  .slate-body{
+    padding: 26px 24px 22px;
+    font-family: var(--mono); font-size: .92rem; line-height: 1.75;
+    min-height: 230px;
+  }
+  .code-line{ white-space: pre; color: var(--paper); }
+  .code-line .kw{ color: var(--cyan); }
+  .code-line .fn{ color: var(--amber); }
+  .code-line .muted-tok{ color: var(--muted-dim); }
+  .caret{
+    display:inline-block; width:.55em; height:1.05em; background: var(--amber);
+    vertical-align: -3px; animation: blink 1s steps(1) infinite;
+  }
+  .slate-foot{
+    border-top: 1px solid var(--rule);
+    padding: 12px 18px;
+    background: var(--panel-2);
+  }
+  .xp-track{ height:5px; background: var(--rule); border-radius:3px; overflow:hidden; }
+  .xp-fill{ height:100%; width: 64%; background: linear-gradient(90deg, var(--amber-dim), var(--amber)); }
+  .slate-foot .label{ font-family: var(--mono); font-size:.66rem; color: var(--muted-dim); letter-spacing:.08em; margin-top:8px; text-transform:uppercase; }
+
+  /* ============ MANIFESTO ============ */
+  .manifesto{ padding: 100px 0; }
+  .manifesto .statement{
+    font-family: var(--display);
+    text-transform: uppercase;
+    font-size: clamp(1.7rem, 3.4vw, 2.9rem);
+    line-height: 1.12;
+    max-width: 880px;
+    margin-bottom: 48px;
+  }
+  .manifesto-cols{
+    display:grid; grid-template-columns: 1fr 1px 1fr; gap: 44px;
+  }
+  .manifesto-cols .rule{ background: var(--rule); }
+  .manifesto-cols p{ color: var(--muted); font-size: 1rem; }
+  .manifesto-cols .tag{
+    font-family: var(--mono); font-size: .7rem; letter-spacing:.12em; text-transform:uppercase;
+    color: var(--muted-dim); margin-bottom: 10px; display:block;
+  }
+
+  /* ============ SECTION GENERIC ============ */
+  section{ padding: 100px 0; }
+  .panel-section{ background: var(--panel); }
+
+  /* ============ PIPELINE ============ */
+  .pipeline{ display:grid; grid-template-columns: repeat(3,1fr); gap: 28px; margin-top: 50px; }
+  .pipe-card{
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 30px 26px;
+    position: relative;
+  }
+  .pipe-card .stage-label{
+    font-family: var(--mono); font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 20px; display:block;
+  }
+  .pipe-icon{ margin-bottom: 18px; }
+  .pipe-card p{ color: var(--muted); font-size: .95rem; }
+  .pipe-connector{
+    display:none;
+  }
+
+  /* ============ LANGUAGES ============ */
+  .lang-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 46px;
+  }
+  .lang-card{
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    padding: 18px 18px;
+    display:flex; align-items:center; justify-content:space-between;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .lang-card:hover{ border-color: var(--amber); transform: translateY(-2px); }
+  .lang-name{ font-family: var(--mono); font-weight:600; font-size: .94rem; }
+  .lang-meta{ font-family: var(--mono); font-size: .7rem; color: var(--muted-dim); margin-top:4px; }
+  .lang-dot{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+  /* ============ DRILL DEEP DIVE ============ */
+  .drill-grid{ display:grid; grid-template-columns: .85fr 1.15fr; gap: 56px; align-items:center; margin-top: 40px; }
+  .checklist{ margin-top: 26px; }
+  .checklist li{
+    font-family: var(--mono); font-size: .92rem; color: var(--paper);
+    padding: 12px 0; border-top: 1px solid var(--rule-soft);
+    display:flex; gap: 14px;
+  }
+  .checklist li:last-child{ border-bottom: 1px solid var(--rule-soft); }
+  .checklist li .mark{ color: var(--amber); flex-shrink:0; }
+
+  .drill-mock{
+    background: var(--panel); border:1px solid var(--rule); border-radius:6px; padding: 24px;
+  }
+  .drill-line{ font-family: var(--mono); font-size: 1.02rem; line-height: 2; }
+  .ok{ color: var(--paper); }
+  .err{ color: var(--red); text-decoration: line-through; text-decoration-color: rgba(225,79,69,.6); }
+  .pending{ color: var(--muted-dim); }
+  .drill-stats{ display:flex; gap: 28px; margin-top: 22px; padding-top:20px; border-top: 1px solid var(--rule); }
+  .drill-stats div{ font-family: var(--mono); }
+  .drill-stats .num{ font-size: 1.5rem; color: var(--amber); font-weight:700; }
+  .drill-stats .num.cy{ color: var(--cyan); }
+  .drill-stats .lab{ font-size: .65rem; color: var(--muted-dim); letter-spacing:.1em; text-transform:uppercase; margin-top:2px; }
+
+  /* ============ GAMIFICATION ============ */
+  .wrap-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 44px; }
+  .wrap-card{ background: var(--ink); border: 1px solid var(--rule); border-radius:6px; padding: 26px; }
+  .level-row{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; font-family: var(--mono); }
+  .level-row .lvl{ color: var(--amber); font-weight:700; font-size: .85rem; letter-spacing:.04em; }
+  .level-row .xp{ color: var(--muted-dim); font-size: .72rem; }
+
+  .heat{ display:grid; grid-template-columns: repeat(20, 1fr); gap: 4px; margin-top: 16px; }
+  .heat i{ display:block; padding-top:100%; border-radius:2px; background: var(--rule-soft); }
+
+  .badge-row{ display:flex; gap: 18px; margin-top: 8px; flex-wrap: wrap; }
+  .badge{ text-align:center; width: 96px; }
+  .badge .medal{ margin: 0 auto 10px; }
+  .badge .b-label{ font-family: var(--mono); font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; color: var(--muted); line-height:1.4; }
+
+  /* ============ ANALYTICS ============ */
+  .dash{ background: var(--panel); border:1px solid var(--rule); border-radius:8px; padding: 30px; margin-top: 44px; }
+  .dash-top{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 24px; flex-wrap:wrap; gap:16px; }
+  .dash-top .ttl{ font-family: var(--mono); font-size:.78rem; color: var(--muted); letter-spacing:.06em; text-transform:uppercase; }
+  .sync-row{ display:flex; gap: 18px; align-items:center; }
+  .sync-row .dev{ display:flex; align-items:center; gap:7px; font-family: var(--mono); font-size:.7rem; color: var(--muted-dim); }
+  .dash-grid{ display:grid; grid-template-columns: 1.4fr 1fr; gap: 26px; }
+
+  /* ============ DIRECTORS ============ */
+  .directors-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: 22px; margin-top: 46px; }
+  .dir-card{ border: 1px solid var(--rule); border-radius:6px; padding: 24px 20px; }
+  .monogram{
+    width: 48px; height:48px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--mono); font-weight:700; font-size: .92rem;
+    color: var(--ink-2); margin-bottom: 18px;
+  }
+  .dir-card h4{ font-family: var(--body); font-weight:600; font-size: 1rem; margin-bottom:4px; }
+  .dir-card .role{ font-family: var(--mono); font-size: .72rem; color: var(--muted); line-height: 1.5; }
+
+  /* ============ FINAL CTA ============ */
+  .final-cta{ text-align:center; padding: 130px 0 110px; }
+  .final-cta h2{ font-size: clamp(2.4rem, 6vw, 5rem); }
+  .final-cta .lede{ margin: 0 auto 36px; }
+  .final-cta .btn-row{ justify-content:center; }
+  .final-cta .fine{ margin-top: 22px; font-family: var(--mono); font-size:.74rem; color: var(--muted-dim); }
+
+  /* ============ FOOTER ============ */
+  footer{ background: var(--ink-2); padding: 60px 0 30px; }
+  .foot-grid{ display:grid; grid-template-columns: 1.3fr repeat(3, .8fr); gap: 36px; margin-bottom: 50px; }
+  .foot-brand .logo{ margin-bottom: 14px; }
+  .foot-brand p{ color: var(--muted-dim); font-size: .88rem; max-width: 280px; }
+  .foot-col h5{ font-family: var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color: var(--muted-dim); margin-bottom: 16px; }
+  .foot-col a{ display:block; font-size: .88rem; color: var(--muted); margin-bottom: 11px; transition: color .15s ease; }
+  .foot-col a:hover{ color: var(--paper); }
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    border-top: 1px solid var(--rule-soft); padding-top: 24px;
+    font-family: var(--mono); font-size: .72rem; color: var(--muted-dim);
+    flex-wrap: wrap; gap: 12px;
+  }
+  .foot-bottom .links{ display:flex; gap: 22px; }
+
+  /* ============ REVEAL ANIM ============ */
+  .reveal{ opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.show{ opacity:1; transform: none; }
+
+  @keyframes blink{ 50%{ opacity:0; } }
+  @keyframes pulse-rec{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .logo .dot, .caret{ animation:none; }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 980px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .pipeline{ grid-template-columns: 1fr; }
+    .lang-grid{ grid-template-columns: repeat(2,1fr); }
+    .drill-grid{ grid-template-columns: 1fr; }
+    .wrap-grid{ grid-template-columns: 1fr; }
+    .dash-grid{ grid-template-columns: 1fr; }
+    .directors-grid{ grid-template-columns: repeat(2,1fr); }
+    .foot-grid{ grid-template-columns: repeat(2,1fr); }
+    .manifesto-cols{ grid-template-columns: 1fr; }
+    .manifesto-cols .rule{ height:1px; width:100%; }
+  }
+  @media (max-width: 640px){
+    .navlinks{ display:none; }
+    .hero{ padding-top: 130px; }
+    .lang-grid{ grid-template-columns: 1fr 1fr; }
+    .directors-grid{ grid-template-columns: 1fr; }
+    .foot-grid{ grid-template-columns: 1fr; }
+    .foot-bottom{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="grain" xmlns="http://www.w3.org/2000/svg">
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#grain)"/>
+</svg>
+
+<header class="site">
+  <nav>
+    <div class="logo"><span class="dot"></span> Coding Director</div>
+    <div class="navlinks">
+      <a href="#pipeline">Curriculum</a>
+      <a href="#languages">Languages</a>
+      <a href="#pricing">Pricing</a>
+      <a href="app.html">Log in</a>
+      <a href="app.html" class="btn btn-primary">Start free →</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> REC — Scene 01, Take 1</div>
+        <h1>You've watched<br>the tutorial.<br><span class="accent">Now write the code.</span></h1>
+        <p class="lede">1,000+ lessons across 12+ languages, directed by engineers who ship production code — then locked in with real typing drills, so the syntax ends up in your hands, not just your bookmarks.</p>
+        <div class="btn-row">
+          <a href="app.html" class="btn btn-primary">Start training free</a>
+          <a href="#drill" class="btn btn-ghost">Watch a lesson ▸</a>
+        </div>
+      </div>
+
+      <div class="slate reveal">
+        <div class="slate-bar">
+          <span class="file">quicksort.py</span>
+          <span class="stage">INT. EDITOR — DAY</span>
+          <span class="stats"><span id="wpmOut">0</span> WPM&nbsp;&nbsp;<span class="acc" id="accOut">100</span>% ACC</span>
+        </div>
+        <div class="slate-body">
+          <div id="typeTarget"></div>
+        </div>
+        <div class="slate-foot">
+          <div class="xp-track"><div class="xp-fill"></div></div>
+          <div class="label">Take 3 of 3 — 64% to next badge</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MANIFESTO ============ -->
+  <section class="manifesto">
+    <div class="wrap">
+      <p class="statement reveal">Video makes you a spectator. <span class="accent">Typing makes you a developer.</span></p>
+      <div class="manifesto-cols reveal">
+        <div>
+          <span class="tag">The problem</span>
+          <p>Passive tutorials feel like progress. You nod along, you understand the idea — and the blank editor still stares back at you the moment you're on your own.</p>
+        </div>
+        <div class="rule"></div>
+        <div>
+          <span class="tag">The method</span>
+          <p>Every Coding Director lesson ends in a real take: you type the function, fix the bug, ship the line yourself. The understanding sticks because your hands built it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PIPELINE ============ -->
+  <section class="panel-section" id="pipeline">
+    <div class="sprocket"></div>
+    <div class="wrap" style="padding-top:54px;">
+      <div class="eyebrow muted reveal"><span class="dot"></span> Scene 03 — How a lesson gets made</div>
+      <h2 class="reveal">The production pipeline</h2>
+      <p class="lede reveal">Three stages, every single lesson. No skipping straight to the credits.</p>
+
+      <div class="pipeline">
+        <div class="pipe-card reveal">
+          <span class="stage-label">Pre-production</span>
+          <svg class="pipe-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect x="4" y="14" width="32" height="22" rx="2" stroke="#67d2c4" stroke-width="2"/>
+            <path d="M4 14L9 6h7l-4 8M19 14l5-8h7l-4 8" stroke="#67d2c4" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <h3>Pick a track</h3>
+          <p>Choose from 12+ languages and 1,000+ lessons, scripted and directed by engineers who write production code for a living.</p>
+        </div>
+
+        <div class="pipe-card reveal">
+          <span class="stage-label">Production</span>
+          <svg class="pipe-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect x="5" y="5" width="30" height="30" rx="3" stroke="#e8a33d" stroke-width="2"/>
+            <path d="M14 13l13 7-13 7V13z" fill="#e8a33d"/>
+          </svg>
+          <h3>Roll the take</h3>
+          <p>Every lesson ends in a real typing drill. Type the actual syntax, line by line, until it's muscle memory — not a memory of watching someone else type it.</p>
+        </div>
+
+        <div class="pipe-card reveal">
+          <span class="stage-label">Post-production</span>
+          <svg class="pipe-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M5 30L13 18l7 8 8-14 7 10" stroke="#e14f45" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="35" cy="12" r="2.4" fill="#e14f45"/>
+          </svg>
+          <h3>Review the dailies</h3>
+          <p>Your analytics dashboard tracks speed, accuracy, and concepts mastered. Progress syncs to the cloud, so the next take can start on any device.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sprocket"></div>
+  </section>
+
+  <!-- ============ LANGUAGES ============ -->
+  <section id="languages">
+    <div class="wrap">
+      <div class="eyebrow reveal"><span class="dot"></span> Scene 04 — The cast</div>
+      <h2 class="reveal">12+ languages. One method.</h2>
+      <p class="lede reveal">Every track follows the same rule: watch a real engineer direct the scene, then take it yourself.</p>
+
+      <div class="lang-grid" id="langGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ DRILL DEEP DIVE ============ -->
+  <section class="panel-section" id="drill">
+    <div class="sprocket"></div>
+    <div class="wrap" style="padding-top:54px;">
+      <div class="drill-grid">
+        <div>
+          <div class="eyebrow muted reveal"><span class="dot"></span> Scene 05 — The take</div>
+          <h2 class="reveal">Built for muscle memory, not multiple choice.</h2>
+          <ul class="checklist reveal">
+            <li><span class="mark">—</span> Type real syntax, not fill-in-the-blank</li>
+            <li><span class="mark">—</span> Mistakes are caught mid-keystroke, not after submit</li>
+            <li><span class="mark">—</span> Difficulty adapts to your speed and error rate</li>
+            <li><span class="mark">—</span> Drills are pulled from production-style code, not toy examples</li>
+          </ul>
+        </div>
+
+        <div class="drill-mock reveal">
+          <div class="drill-line"><span class="ok">def merge(left, right):</span></div>
+          <div class="drill-line"><span class="ok">&nbsp;&nbsp;&nbsp;&nbsp;result = </span><span class="err">[]</span><span class="ok">&nbsp;</span><span class="caret"></span><span class="pending">resul</span></div>
+          <div class="drill-line"><span class="pending">&nbsp;&nbsp;&nbsp;&nbsp;while left and right:</span></div>
+          <div class="drill-stats">
+            <div><div class="num">112</div><div class="lab">WPM</div></div>
+            <div><div class="num cy">98%</div><div class="lab">Accuracy</div></div>
+            <div><div class="num">Day 84</div><div class="lab">Streak</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sprocket"></div>
+  </section>
+
+  <!-- ============ GAMIFICATION ============ -->
+  <section id="wrap">
+    <div class="wrap">
+      <div class="eyebrow reveal"><span class="dot"></span> Scene 06 — That's a wrap</div>
+      <h2 class="reveal">Show up daily. Keep the streak alive.</h2>
+      <p class="lede reveal">Streaks, XP, and badges aren't decoration — they're the reason 1,000+ lessons feel finishable.</p>
+
+      <div class="wrap-grid">
+        <div class="wrap-card reveal">
+          <div class="level-row"><span class="lvl">Level 12</span><span class="xp">2,140 / 3,000 XP</span></div>
+          <div class="xp-track"><div class="xp-fill"></div></div>
+          <p style="font-family:var(--mono); font-size:.78rem; color:var(--muted-dim); margin-top:18px; margin-bottom:8px;">84-DAY STREAK</p>
+          <div class="heat" id="heatGrid"></div>
+        </div>
+
+        <div class="wrap-card reveal">
+          <p style="font-family:var(--mono); font-size:.78rem; color:var(--muted-dim); margin-bottom:18px;">RECENTLY UNLOCKED</p>
+          <div class="badge-row">
+            <div class="badge">
+              <svg class="medal" width="56" height="56" viewBox="0 0 56 56">
+                <circle cx="28" cy="28" r="24" fill="none" stroke="#e8a33d" stroke-width="2.5"/>
+                <circle cx="28" cy="28" r="17" fill="none" stroke="#e8a33d" stroke-width="1.2" stroke-dasharray="2 3"/>
+                <text x="28" y="33" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#e8a33d" font-weight="700">100</text>
+              </svg>
+              <div class="b-label">100-Day Streak</div>
+            </div>
+            <div class="badge">
+              <svg class="medal" width="56" height="56" viewBox="0 0 56 56">
+                <circle cx="28" cy="28" r="24" fill="none" stroke="#67d2c4" stroke-width="2.5"/>
+                <circle cx="28" cy="28" r="17" fill="none" stroke="#67d2c4" stroke-width="1.2" stroke-dasharray="2 3"/>
+                <text x="28" y="33" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#67d2c4" font-weight="700">80</text>
+              </svg>
+              <div class="b-label">Type Master · 80WPM</div>
+            </div>
+            <div class="badge">
+              <svg class="medal" width="56" height="56" viewBox="0 0 56 56">
+                <circle cx="28" cy="28" r="24" fill="none" stroke="#e14f45" stroke-width="2.5"/>
+                <circle cx="28" cy="28" r="17" fill="none" stroke="#e14f45" stroke-width="1.2" stroke-dasharray="2 3"/>
+                <text x="28" y="33" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#e14f45" font-weight="700">RS</text>
+              </svg>
+              <div class="b-label">Rust Wrangler</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ANALYTICS ============ -->
+  <section class="panel-section">
+    <div class="sprocket"></div>
+    <div class="wrap" style="padding-top:54px;">
+      <div class="eyebrow muted reveal"><span class="dot"></span> Scene 07 — Dailies</div>
+      <h2 class="reveal">Watch the footage. See yourself improve.</h2>
+      <p class="lede reveal">Every take is logged. The dashboard turns it into a growth curve you can actually see.</p>
+
+      <div class="dash reveal">
+        <div class="dash-top">
+          <span class="ttl">Your progress — last 12 weeks</span>
+          <div class="sync-row">
+            <div class="dev"><svg width="16" height="14" viewBox="0 0 16 14"><rect x="1" y="1" width="14" height="9" rx="1" stroke="#6e7585" fill="none"/><rect x="5" y="12" width="6" height="1.4" fill="#6e7585"/></svg> Desktop</div>
+            <div class="dev"><svg width="11" height="16" viewBox="0 0 11 16"><rect x="1" y="1" width="9" height="14" rx="1.4" stroke="#6e7585" fill="none"/></svg> Tablet</div>
+            <div class="dev"><svg width="9" height="16" viewBox="0 0 9 16"><rect x="1" y="1" width="7" height="14" rx="1.4" stroke="#6e7585" fill="none"/></svg> Phone</div>
+            <span style="font-family:var(--mono); font-size:.7rem; color:var(--cyan);">● synced</span>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <svg viewBox="0 0 520 200" width="100%">
+            <line x1="0" y1="50" x2="520" y2="50" stroke="#2b313d" stroke-width="1"/>
+            <line x1="0" y1="100" x2="520" y2="100" stroke="#2b313d" stroke-width="1"/>
+            <line x1="0" y1="150" x2="520" y2="150" stroke="#2b313d" stroke-width="1"/>
+            <polyline points="0,170 50,165 100,150 150,148 200,130 250,120 300,108 350,95 400,80 450,60 500,42"
+              fill="none" stroke="#e8a33d" stroke-width="2.5"/>
+            <polyline points="0,185 50,180 100,178 150,170 200,168 250,160 300,158 350,150 400,148 450,140 500,132"
+              fill="none" stroke="#67d2c4" stroke-width="2"/>
+            <text x="0" y="14" font-family="JetBrains Mono" font-size="10" fill="#e8a33d">WPM</text>
+            <text x="40" y="14" font-family="JetBrains Mono" font-size="10" fill="#67d2c4">Accuracy</text>
+          </svg>
+
+          <div>
+            <p style="font-family:var(--mono); font-size:.68rem; color:var(--muted-dim); margin-bottom:14px; letter-spacing:.08em;">MINUTES BY LANGUAGE</p>
+            <div id="barChart" style="display:flex; flex-direction:column; gap:10px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sprocket"></div>
+  </section>
+
+  <!-- ============ DIRECTORS ============ -->
+  <section>
+    <div class="wrap">
+      <div class="eyebrow reveal"><span class="dot"></span> Scene 08 — Directed by</div>
+      <h2 class="reveal">Lessons directed by engineers who ship.</h2>
+      <p class="lede reveal">No camera-ready influencers. Every lesson is written and recorded by someone who writes production code in their day job.</p>
+
+      <div class="directors-grid">
+        <div class="dir-card reveal">
+          <div class="monogram" style="background:var(--amber);">MO</div>
+          <h4>M. Okafor</h4>
+          <p class="role">Staff Engineer<br>11 yrs, distributed systems</p>
+        </div>
+        <div class="dir-card reveal">
+          <div class="monogram" style="background:var(--cyan);">LB</div>
+          <h4>L. Bergström</h4>
+          <p class="role">Senior Frontend Engineer<br>Ex-startup CTO</p>
+        </div>
+        <div class="dir-card reveal">
+          <div class="monogram" style="background:var(--red); color:var(--paper);">RC</div>
+          <h4>R. Castellanos</h4>
+          <p class="role">ML Infrastructure Engineer<br>8 yrs production ML</p>
+        </div>
+        <div class="dir-card reveal">
+          <div class="monogram" style="background:var(--paper);">AW</div>
+          <h4>A. Whitfield</h4>
+          <p class="role">Principal Engineer<br>Compilers &amp; languages</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="final-cta panel-section" id="pricing">
+    <div class="sprocket"></div>
+    <div class="wrap">
+      <div class="eyebrow muted reveal" style="justify-content:center;"><span class="dot"></span> Scene 09 — Action</div>
+      <h2 class="reveal">Ready for your close-up?</h2>
+      <p class="lede reveal" style="max-width:480px;">1,000+ lessons. 12+ languages. Drills that build real muscle memory. Free to start.</p>
+      <div class="btn-row reveal">
+        <a href="app.html" class="btn btn-primary">Start training free</a>
+        <a href="#pipeline" class="btn btn-ghost">See the curriculum</a>
+      </div>
+      <p class="fine">No credit card required. Cancel the take anytime.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><span class="dot" style="animation:none;"></span> Coding Director</div>
+        <p>Trains your hands, not just your eyes. 1,000+ lessons across 12+ languages, directed by engineers who ship.</p>
+        <a href="app.html" class="btn btn-primary" style="margin-top:18px;">Open App →</a>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <a href="#pipeline">Curriculum</a>
+        <a href="#languages">Languages</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="#">About</a>
+        <a href="#">Directors</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="foot-col">
+        <h5>Resources</h5>
+        <a href="#">Docs</a>
+        <a href="#">Status</a>
+        <a href="#">Changelog</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Coding Director. All takes reserved.</span>
+      <div class="links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- reveal on scroll ----------
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+  }, { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---------- hero typing demo ----------
+  const lines = [
+    [["def ", "kw"], ["quicksort", "fn"], ["(arr):", ""]],
+    [["    if ", "kw"], ["len(arr) <= 1:", ""]],
+    [["        return arr", ""]],
+    [["    pivot = arr[", ""], ["len(arr) // 2", "muted-tok"], ["]", ""]],
+    [["    left = [x ", ""], ["for ", "kw"], ["x in arr ", ""], ["if ", "kw"], ["x < pivot]", ""]],
+    [["    return ", "kw"], ["quicksort(left) + mid + quicksort(right)", "fn"]],
+  ];
+  const target = document.getElementById('typeTarget');
+  const wpmOut = document.getElementById('wpmOut');
+  const accOut = document.getElementById('accOut');
+
+  let lineIdx = 0, charIdx = 0, segIdx = 0, totalChars = 0, startTime = Date.now();
+  let builtLines = [];
+
+  function currentSegments(){ return lines[lineIdx]; }
+
+  function render(){
+    let html = builtLines.map(l => `<div class="code-line">${l}</div>`).join('');
+    let segs = currentSegments();
+    let lineHtml = '';
+    for(let i=0;i<segIdx;i++){
+      lineHtml += `<span class="${segs[i][1]}">${escapeHtml(segs[i][0])}</span>`;
+    }
+    if(segIdx < segs.length){
+      const seg = segs[segIdx];
+      lineHtml += `<span class="${seg[1]}">${escapeHtml(seg[0].slice(0,charIdx))}</span><span class="caret"></span>`;
+    }
+    html += `<div class="code-line">${lineHtml}</div>`;
+    target.innerHTML = html;
+  }
+
+  function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+  function tick(){
+    const segs = currentSegments();
+    if(segIdx >= segs.length){
+      builtLines.push(segs.map(s => `<span class="${s[1]}">${escapeHtml(s[0])}</span>`).join(''));
+      if(builtLines.length > 6) builtLines.shift();
+      lineIdx = (lineIdx + 1) % lines.length;
+      segIdx = 0; charIdx = 0;
+      if(lineIdx === 0){ builtLines = []; startTime = Date.now(); totalChars = 0; }
+      render();
+      setTimeout(tick, 260);
+      return;
+    }
+    const seg = segs[segIdx];
+    if(charIdx < seg[0].length){
+      charIdx++;
+      totalChars++;
+      render();
+      const elapsed = Math.max((Date.now() - startTime) / 1000, 1);
+      const wpm = Math.min(135, Math.round((totalChars / 5) / (elapsed / 60)));
+      wpmOut.textContent = wpm || 0;
+      accOut.textContent = (97 + Math.floor(Math.random()*3));
+      setTimeout(tick, 38 + Math.random()*55);
+    } else {
+      segIdx++;
+      charIdx = 0;
+      render();
+      setTimeout(tick, 90);
+    }
+  }
+  render();
+  setTimeout(tick, 600);
+
+  // ---------- language grid ----------
+  const languages = [
+    ['Python', 142, '#e8a33d'], ['JavaScript', 138, '#67d2c4'], ['TypeScript', 96, '#e8a33d'],
+    ['Rust', 84, '#e14f45'], ['Go', 79, '#67d2c4'], ['Java', 91, '#e8a33d'],
+    ['C++', 88, '#e14f45'], ['Ruby', 64, '#67d2c4'], ['Swift', 58, '#e8a33d'],
+    ['Kotlin', 52, '#e14f45'], ['SQL', 61, '#67d2c4'], ['Bash', 47, '#e8a33d'],
+  ];
+  const langGrid = document.getElementById('langGrid');
+  languages.forEach(([name, count, color]) => {
+    const card = document.createElement('div');
+    card.className = 'lang-card reveal';
+    card.innerHTML = `<div><div class="lang-name">${name}</div><div class="lang-meta">${count} lessons</div></div><span class="lang-dot" style="background:${color};"></span>`;
+    langGrid.appendChild(card);
+    io.observe(card);
+  });
+
+  // ---------- streak heatmap ----------
+  const heat = document.getElementById('heatGrid');
+  for(let i=0;i<140;i++){
+    const cell = document.createElement('i');
+    const r = Math.random();
+    if(i > 100 || r > .8){
+      const intensity = .25 + Math.random()*.75;
+      cell.style.background = `rgba(232,163,61,${intensity.toFixed(2)})`;
+    }
+    heat.appendChild(cell);
+  }
+
+  // ---------- bar chart ----------
+  const bars = [['Python', 86], ['Rust', 64], ['TypeScript', 51], ['Go', 38]];
+  const barChart = document.getElementById('barChart');
+  bars.forEach(([name, val]) => {
+    const row = document.createElement('div');
+    row.innerHTML = `
+      <div style="display:flex; justify-content:space-between; font-family:var(--mono); font-size:.7rem; color:var(--muted); margin-bottom:5px;">
+        <span>${name}</span><span>${val}m</span>
+      </div>
+      <div style="height:6px; background:var(--rule); border-radius:3px; overflow:hidden;">
+        <div style="height:100%; width:${val}%; background:var(--cyan);"></div>
+      </div>`;
+    barChart.appendChild(row);
+  });
+</script>
+
+</body>
+</html>

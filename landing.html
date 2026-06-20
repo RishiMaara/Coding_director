@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Director — Direct Your Coding Journey</title>
+  <title>Coding Director — Train Your Hands, Not Just Your Eyes</title>
   <meta name="description" content="Learn to code with elite trainers. 1000+ coding lessons, typing drills, and real-world projects. Coding Director is where developers level up.">
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -14,16 +14,22 @@
   <meta property="og:description" content="Learn to code with elite trainers. 1000+ coding lessons, typing drills, and real-world projects.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="hero.png">
-  <meta name="theme-color" content="#7c3aed">
+  <meta name="theme-color" content="#e8a33d">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Coding Director">
   <meta name="twitter:description" content="Direct your coding journey. 1000+ lessons, typing drills, expert trainers.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="landing.css">
 </head>
 <body>
+
+  <!-- ===== FILM GRAIN OVERLAY ===== -->
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter>
+    <rect width="100%" height="100%" filter="url(#grain)"/>
+  </svg>
 
   <!-- ===== PARTICLE CANVAS ===== -->
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
@@ -59,11 +65,8 @@
 
       <!-- CTA -->
       <div class="nav-actions">
-        <a href="index.html" class="btn-nav-login" id="btn-nav-login">Log In</a>
-        <a href="index.html" class="btn-nav-signup" id="btn-nav-signup">
-          Start Free
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        <a href="app.html" class="btn-nav-login" id="btn-nav-login">Log In</a>
+        <a href="app.html" class="btn-nav-signup" id="btn-nav-signup">Start Free →</a>
       </div>
 
       <!-- Mobile hamburger -->
@@ -118,7 +121,7 @@
 
         <!-- CTA buttons -->
         <div class="hero-ctas">
-          <a href="index.html" class="btn-hero-primary" id="hero-cta-start">
+          <a href="app.html" class="btn-hero-primary" id="hero-cta-start">
             <span>🎬 Start Directing</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -303,7 +306,7 @@
             <span>Beginner → Expert</span>
           </div>
           <div class="course-progress-bar"><div class="course-progress-fill" style="width:78%"></div></div>
-          <a href="index.html" class="course-cta" id="course-py-cta">Enroll Now →</a>
+          <a href="app.html" class="course-cta" id="course-py-cta">Enroll Now →</a>
         </div>
 
         <div class="course-card stagger" id="course-js">
@@ -319,7 +322,7 @@
             <span>All Levels</span>
           </div>
           <div class="course-progress-bar"><div class="course-progress-fill" style="width:65%"></div></div>
-          <a href="index.html" class="course-cta" id="course-js-cta">Enroll Now →</a>
+          <a href="app.html" class="course-cta" id="course-js-cta">Enroll Now →</a>
         </div>
 
         <div class="course-card stagger" id="course-rust">
@@ -335,7 +338,7 @@
             <span>Intermediate → Advanced</span>
           </div>
           <div class="course-progress-bar"><div class="course-progress-fill" style="width:45%"></div></div>
-          <a href="index.html" class="course-cta" id="course-rust-cta">Enroll Now →</a>
+          <a href="app.html" class="course-cta" id="course-rust-cta">Enroll Now →</a>
         </div>
 
         <div class="course-card stagger" id="course-go">
@@ -350,13 +353,13 @@
             <span>Intermediate</span>
           </div>
           <div class="course-progress-bar"><div class="course-progress-fill" style="width:55%"></div></div>
-          <a href="index.html" class="course-cta" id="course-go-cta">Enroll Now →</a>
+          <a href="app.html" class="course-cta" id="course-go-cta">Enroll Now →</a>
         </div>
 
       </div>
 
       <div class="courses-cta-row">
-        <a href="index.html" class="btn-all-courses" id="btn-all-courses">View All 1000+ Lessons →</a>
+        <a href="app.html" class="btn-all-courses" id="btn-all-courses">View All 1000+ Lessons →</a>
       </div>
     </div>
   </section>
@@ -445,7 +448,7 @@
             <li>❌ Cloud sync</li>
             <li>❌ Analytics dashboard</li>
           </ul>
-          <a href="index.html" class="plan-cta plan-cta-outline" id="plan-free-cta">Get Started Free</a>
+          <a href="app.html" class="plan-cta plan-cta-outline" id="plan-free-cta">Get Started Free</a>
         </div>
 
         <div class="pricing-card featured stagger" id="plan-pro">
@@ -461,7 +464,7 @@
             <li>✅ Analytics & streak calendar</li>
             <li>✅ Daily challenges</li>
           </ul>
-          <a href="index.html" class="plan-cta plan-cta-primary" id="plan-pro-cta">Start 7-day Free Trial</a>
+          <a href="app.html" class="plan-cta plan-cta-primary" id="plan-pro-cta">Start 7-day Free Trial</a>
         </div>
 
         <div class="pricing-card stagger" id="plan-team">
@@ -476,7 +479,7 @@
             <li>✅ Priority support</li>
             <li>✅ Trainer Q&A sessions</li>
           </ul>
-          <a href="index.html" class="plan-cta plan-cta-outline" id="plan-team-cta">Contact Us</a>
+          <a href="app.html" class="plan-cta plan-cta-outline" id="plan-team-cta">Contact Us</a>
         </div>
 
       </div>
@@ -501,7 +504,7 @@
         Every lesson, every drill, every badge is crafted with one goal: <em>making you a faster, sharper, more confident developer.</em>
       </p>
       <div class="about-cta-btns">
-        <a href="index.html" class="btn-hero-primary" id="about-cta-app">
+        <a href="app.html" class="btn-hero-primary" id="about-cta-app">
           <span>🎬 Open the App</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
@@ -530,17 +533,17 @@
       <div class="footer-links">
         <div class="footer-col">
           <h5 class="footer-col-title">Platform</h5>
-          <a href="index.html" class="footer-link">Dashboard</a>
-          <a href="index.html" class="footer-link">Lessons</a>
-          <a href="index.html" class="footer-link">Typing Drills</a>
-          <a href="index.html" class="footer-link">Settings</a>
+          <a href="app.html" class="footer-link">Dashboard</a>
+          <a href="app.html" class="footer-link">Lessons</a>
+          <a href="app.html" class="footer-link">Typing Drills</a>
+          <a href="app.html" class="footer-link">Settings</a>
         </div>
         <div class="footer-col">
           <h5 class="footer-col-title">Learn</h5>
-          <a href="index.html" class="footer-link">Python</a>
-          <a href="index.html" class="footer-link">JavaScript</a>
-          <a href="index.html" class="footer-link">Rust</a>
-          <a href="index.html" class="footer-link">Go</a>
+          <a href="app.html" class="footer-link">Python</a>
+          <a href="app.html" class="footer-link">JavaScript</a>
+          <a href="app.html" class="footer-link">Rust</a>
+          <a href="app.html" class="footer-link">Go</a>
         </div>
         <div class="footer-col">
           <h5 class="footer-col-title">Company</h5>
